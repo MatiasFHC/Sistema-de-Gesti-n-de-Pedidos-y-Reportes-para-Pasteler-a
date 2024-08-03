@@ -1,0 +1,609 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ModelEF.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="administradores">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="int" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="contrasena" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="encuestas">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="int" Nullable="false" />
+          <Property Name="preguntas" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="usuarios_codigo" Type="int" Nullable="false" />
+          <Property Name="frecuencia" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ocasion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="sabor" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="metodos_de_pago">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="int" Nullable="false" />
+          <Property Name="tipo_de_pago" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ordenes">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="int" Nullable="false" />
+          <Property Name="fecha_entrega" Type="date" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="distrito" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="precio" Type="int" Nullable="false" />
+          <Property Name="usuarios_codigo" Type="int" Nullable="false" />
+          <Property Name="administradores_codigo" Type="int" Nullable="false" />
+          <Property Name="pagos_codigo" Type="int" Nullable="false" />
+          <Property Name="sedes_codigo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pagos">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="int" Nullable="false" />
+          <Property Name="metodos_de_pago_codigo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reportes">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="int" Nullable="false" />
+          <Property Name="resultados" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="administradores_codigo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sedes">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="int" Nullable="false" />
+          <Property Name="distrito" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tortas">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="sabor" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="tematica" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="tamano" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ordenes_codigo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="int" Nullable="false" />
+          <Property Name="dni" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fecha_de_nacimiento" Type="date" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="distrito" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="contrasena" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="encuestas_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="encuestas" Type="Self.encuestas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="encuestas">
+              <PropertyRef Name="usuarios_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ordenes_administradores">
+          <End Role="administradores" Type="Self.administradores" Multiplicity="1" />
+          <End Role="ordenes" Type="Self.ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="administradores">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="ordenes">
+              <PropertyRef Name="administradores_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ordenes_pagos">
+          <End Role="pagos" Type="Self.pagos" Multiplicity="1" />
+          <End Role="ordenes" Type="Self.ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pagos">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="ordenes">
+              <PropertyRef Name="pagos_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ordenes_sedes">
+          <End Role="sedes" Type="Self.sedes" Multiplicity="1" />
+          <End Role="ordenes" Type="Self.ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sedes">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="ordenes">
+              <PropertyRef Name="sedes_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ordenes_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="ordenes" Type="Self.ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="ordenes">
+              <PropertyRef Name="usuarios_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pagos_metodos_de_pago">
+          <End Role="metodos_de_pago" Type="Self.metodos_de_pago" Multiplicity="1" />
+          <End Role="pagos" Type="Self.pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="metodos_de_pago">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="pagos">
+              <PropertyRef Name="metodos_de_pago_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reportes_administradores">
+          <End Role="administradores" Type="Self.administradores" Multiplicity="1" />
+          <End Role="reportes" Type="Self.reportes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="administradores">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="reportes">
+              <PropertyRef Name="administradores_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tortas_ordenes">
+          <End Role="ordenes" Type="Self.ordenes" Multiplicity="1" />
+          <End Role="tortas" Type="Self.tortas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ordenes">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="tortas">
+              <PropertyRef Name="ordenes_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelEFStoreContainer">
+          <EntitySet Name="administradores" EntityType="Self.administradores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="encuestas" EntityType="Self.encuestas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="metodos_de_pago" EntityType="Self.metodos_de_pago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ordenes" EntityType="Self.ordenes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pagos" EntityType="Self.pagos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reportes" EntityType="Self.reportes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sedes" EntityType="Self.sedes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tortas" EntityType="Self.tortas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="encuestas_usuarios" Association="Self.encuestas_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="encuestas" EntitySet="encuestas" />
+          </AssociationSet>
+          <AssociationSet Name="ordenes_administradores" Association="Self.ordenes_administradores">
+            <End Role="administradores" EntitySet="administradores" />
+            <End Role="ordenes" EntitySet="ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="ordenes_pagos" Association="Self.ordenes_pagos">
+            <End Role="pagos" EntitySet="pagos" />
+            <End Role="ordenes" EntitySet="ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="ordenes_sedes" Association="Self.ordenes_sedes">
+            <End Role="sedes" EntitySet="sedes" />
+            <End Role="ordenes" EntitySet="ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="ordenes_usuarios" Association="Self.ordenes_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="ordenes" EntitySet="ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="pagos_metodos_de_pago" Association="Self.pagos_metodos_de_pago">
+            <End Role="metodos_de_pago" EntitySet="metodos_de_pago" />
+            <End Role="pagos" EntitySet="pagos" />
+          </AssociationSet>
+          <AssociationSet Name="reportes_administradores" Association="Self.reportes_administradores">
+            <End Role="administradores" EntitySet="administradores" />
+            <End Role="reportes" EntitySet="reportes" />
+          </AssociationSet>
+          <AssociationSet Name="tortas_ordenes" Association="Self.tortas_ordenes">
+            <End Role="ordenes" EntitySet="ordenes" />
+            <End Role="tortas" EntitySet="tortas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModelEF" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="administradores">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="Int32" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasena" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ordenes" Relationship="Self.ordenes_administradores" FromRole="administradores" ToRole="ordenes" />
+          <NavigationProperty Name="reportes" Relationship="Self.reportes_administradores" FromRole="administradores" ToRole="reportes" />
+        </EntityType>
+        <EntityType Name="encuestas">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="Int32" Nullable="false" />
+          <Property Name="preguntas" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuarios_codigo" Type="Int32" Nullable="false" />
+          <Property Name="frecuencia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ocasion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sabor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="usuarios" Relationship="Self.encuestas_usuarios" FromRole="encuestas" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="metodos_de_pago">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="Int32" Nullable="false" />
+          <Property Name="tipo_de_pago" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="pagos" Relationship="Self.pagos_metodos_de_pago" FromRole="metodos_de_pago" ToRole="pagos" />
+        </EntityType>
+        <EntityType Name="ordenes">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="Int32" Nullable="false" />
+          <Property Name="fecha_entrega" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="distrito" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="precio" Type="Int32" Nullable="false" />
+          <Property Name="usuarios_codigo" Type="Int32" Nullable="false" />
+          <Property Name="administradores_codigo" Type="Int32" Nullable="false" />
+          <Property Name="pagos_codigo" Type="Int32" Nullable="false" />
+          <Property Name="sedes_codigo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="administradores" Relationship="Self.ordenes_administradores" FromRole="ordenes" ToRole="administradores" />
+          <NavigationProperty Name="pagos" Relationship="Self.ordenes_pagos" FromRole="ordenes" ToRole="pagos" />
+          <NavigationProperty Name="sedes" Relationship="Self.ordenes_sedes" FromRole="ordenes" ToRole="sedes" />
+          <NavigationProperty Name="usuarios" Relationship="Self.ordenes_usuarios" FromRole="ordenes" ToRole="usuarios" />
+          <NavigationProperty Name="tortas" Relationship="Self.tortas_ordenes" FromRole="ordenes" ToRole="tortas" />
+        </EntityType>
+        <EntityType Name="pagos">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="Int32" Nullable="false" />
+          <Property Name="metodos_de_pago_codigo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="metodos_de_pago" Relationship="Self.pagos_metodos_de_pago" FromRole="pagos" ToRole="metodos_de_pago" />
+          <NavigationProperty Name="ordenes" Relationship="Self.ordenes_pagos" FromRole="pagos" ToRole="ordenes" />
+        </EntityType>
+        <EntityType Name="reportes">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="Int32" Nullable="false" />
+          <Property Name="resultados" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="administradores_codigo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="administradores" Relationship="Self.reportes_administradores" FromRole="reportes" ToRole="administradores" />
+        </EntityType>
+        <EntityType Name="sedes">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="Int32" Nullable="false" />
+          <Property Name="distrito" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ordenes" Relationship="Self.ordenes_sedes" FromRole="sedes" ToRole="ordenes" />
+        </EntityType>
+        <EntityType Name="tortas">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sabor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tematica" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tamano" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ordenes_codigo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ordenes" Relationship="Self.tortas_ordenes" FromRole="tortas" ToRole="ordenes" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="Int32" Nullable="false" />
+          <Property Name="dni" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_de_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="distrito" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasena" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="encuestas" Relationship="Self.encuestas_usuarios" FromRole="usuarios" ToRole="encuestas" />
+          <NavigationProperty Name="ordenes" Relationship="Self.ordenes_usuarios" FromRole="usuarios" ToRole="ordenes" />
+        </EntityType>
+        <Association Name="ordenes_administradores">
+          <End Role="administradores" Type="Self.administradores" Multiplicity="1" />
+          <End Role="ordenes" Type="Self.ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="administradores">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="ordenes">
+              <PropertyRef Name="administradores_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reportes_administradores">
+          <End Role="administradores" Type="Self.administradores" Multiplicity="1" />
+          <End Role="reportes" Type="Self.reportes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="administradores">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="reportes">
+              <PropertyRef Name="administradores_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="encuestas_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="encuestas" Type="Self.encuestas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="encuestas">
+              <PropertyRef Name="usuarios_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="pagos_metodos_de_pago">
+          <End Role="metodos_de_pago" Type="Self.metodos_de_pago" Multiplicity="1" />
+          <End Role="pagos" Type="Self.pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="metodos_de_pago">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="pagos">
+              <PropertyRef Name="metodos_de_pago_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ordenes_pagos">
+          <End Role="pagos" Type="Self.pagos" Multiplicity="1" />
+          <End Role="ordenes" Type="Self.ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pagos">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="ordenes">
+              <PropertyRef Name="pagos_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ordenes_sedes">
+          <End Role="sedes" Type="Self.sedes" Multiplicity="1" />
+          <End Role="ordenes" Type="Self.ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sedes">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="ordenes">
+              <PropertyRef Name="sedes_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ordenes_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="ordenes" Type="Self.ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="ordenes">
+              <PropertyRef Name="usuarios_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tortas_ordenes">
+          <End Role="ordenes" Type="Self.ordenes" Multiplicity="1" />
+          <End Role="tortas" Type="Self.tortas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ordenes">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="tortas">
+              <PropertyRef Name="ordenes_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDEFEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="administradores" EntityType="Self.administradores" />
+          <EntitySet Name="encuestas" EntityType="Self.encuestas" />
+          <EntitySet Name="metodos_de_pago" EntityType="Self.metodos_de_pago" />
+          <EntitySet Name="ordenes" EntityType="Self.ordenes" />
+          <EntitySet Name="pagos" EntityType="Self.pagos" />
+          <EntitySet Name="reportes" EntityType="Self.reportes" />
+          <EntitySet Name="sedes" EntityType="Self.sedes" />
+          <EntitySet Name="tortas" EntityType="Self.tortas" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" />
+          <AssociationSet Name="ordenes_administradores" Association="Self.ordenes_administradores">
+            <End Role="administradores" EntitySet="administradores" />
+            <End Role="ordenes" EntitySet="ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="reportes_administradores" Association="Self.reportes_administradores">
+            <End Role="administradores" EntitySet="administradores" />
+            <End Role="reportes" EntitySet="reportes" />
+          </AssociationSet>
+          <AssociationSet Name="encuestas_usuarios" Association="Self.encuestas_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="encuestas" EntitySet="encuestas" />
+          </AssociationSet>
+          <AssociationSet Name="pagos_metodos_de_pago" Association="Self.pagos_metodos_de_pago">
+            <End Role="metodos_de_pago" EntitySet="metodos_de_pago" />
+            <End Role="pagos" EntitySet="pagos" />
+          </AssociationSet>
+          <AssociationSet Name="ordenes_pagos" Association="Self.ordenes_pagos">
+            <End Role="pagos" EntitySet="pagos" />
+            <End Role="ordenes" EntitySet="ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="ordenes_sedes" Association="Self.ordenes_sedes">
+            <End Role="sedes" EntitySet="sedes" />
+            <End Role="ordenes" EntitySet="ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="ordenes_usuarios" Association="Self.ordenes_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="ordenes" EntitySet="ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="tortas_ordenes" Association="Self.tortas_ordenes">
+            <End Role="ordenes" EntitySet="ordenes" />
+            <End Role="tortas" EntitySet="tortas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelEFStoreContainer" CdmEntityContainer="BDEFEntities">
+          <EntitySetMapping Name="administradores">
+            <EntityTypeMapping TypeName="ModelEF.administradores">
+              <MappingFragment StoreEntitySet="administradores">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="encuestas">
+            <EntityTypeMapping TypeName="ModelEF.encuestas">
+              <MappingFragment StoreEntitySet="encuestas">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="preguntas" ColumnName="preguntas" />
+                <ScalarProperty Name="usuarios_codigo" ColumnName="usuarios_codigo" />
+                <ScalarProperty Name="frecuencia" ColumnName="frecuencia" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="ocasion" ColumnName="ocasion" />
+                <ScalarProperty Name="sabor" ColumnName="sabor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="metodos_de_pago">
+            <EntityTypeMapping TypeName="ModelEF.metodos_de_pago">
+              <MappingFragment StoreEntitySet="metodos_de_pago">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="tipo_de_pago" ColumnName="tipo_de_pago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ordenes">
+            <EntityTypeMapping TypeName="ModelEF.ordenes">
+              <MappingFragment StoreEntitySet="ordenes">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="fecha_entrega" ColumnName="fecha_entrega" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="distrito" ColumnName="distrito" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="usuarios_codigo" ColumnName="usuarios_codigo" />
+                <ScalarProperty Name="administradores_codigo" ColumnName="administradores_codigo" />
+                <ScalarProperty Name="pagos_codigo" ColumnName="pagos_codigo" />
+                <ScalarProperty Name="sedes_codigo" ColumnName="sedes_codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pagos">
+            <EntityTypeMapping TypeName="ModelEF.pagos">
+              <MappingFragment StoreEntitySet="pagos">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="metodos_de_pago_codigo" ColumnName="metodos_de_pago_codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reportes">
+            <EntityTypeMapping TypeName="ModelEF.reportes">
+              <MappingFragment StoreEntitySet="reportes">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="resultados" ColumnName="resultados" />
+                <ScalarProperty Name="administradores_codigo" ColumnName="administradores_codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sedes">
+            <EntityTypeMapping TypeName="ModelEF.sedes">
+              <MappingFragment StoreEntitySet="sedes">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="distrito" ColumnName="distrito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tortas">
+            <EntityTypeMapping TypeName="ModelEF.tortas">
+              <MappingFragment StoreEntitySet="tortas">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="sabor" ColumnName="sabor" />
+                <ScalarProperty Name="tematica" ColumnName="tematica" />
+                <ScalarProperty Name="tamano" ColumnName="tamano" />
+                <ScalarProperty Name="ordenes_codigo" ColumnName="ordenes_codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="ModelEF.usuarios">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fecha_de_nacimiento" ColumnName="fecha_de_nacimiento" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="distrito" ColumnName="distrito" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

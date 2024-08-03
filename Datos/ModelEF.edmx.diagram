@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="51e4ef6cde8e49ee9a1d1db06077c894" Name="Diagram1">
+        <EntityTypeShape EntityType="ModelEF.administradores" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelEF.encuestas" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelEF.metodos_de_pago" Width="1.5" PointX="1.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelEF.ordenes" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelEF.pagos" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelEF.reportes" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelEF.sedes" Width="1.5" PointX="0.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelEF.tortas" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelEF.usuarios" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
+        <AssociationConnector Association="ModelEF.ordenes_administradores" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelEF.reportes_administradores" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelEF.encuestas_usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelEF.pagos_metodos_de_pago" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelEF.ordenes_pagos" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelEF.ordenes_sedes" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelEF.ordenes_usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="ModelEF.tortas_ordenes" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
